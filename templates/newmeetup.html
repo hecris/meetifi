@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Start a Meetup</title>
+</head>
+<body>
+<form action='/create' method='POST'>
+	<p>Name of Meetup:</p>
+	<input type="text" name="name">
+	<p>Where?</p>
+	<input type="text" name="address">
+	<p>When?</p>
+	<input type="date" name="meetup_date">
+	<input type="time" name="meetup_time">
+	<br>
+	<p>Invite your friends!</p>
+	<textarea rows="10" name="invites"></textarea>
+	<br>
+	<input type="submit" name="submit" value="Start!">
+</form>
+</body>
+</html>
