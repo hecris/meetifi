@@ -5,9 +5,10 @@
 </head>
 <body>
 <form action='/create' method='POST'>
+	<input type="text" name="user" value = {{user}} readonly>
 	<p>Name of Meetup:</p>
 	<input type="text" name="name">
-	<p>Where?</p>
+	<p>Where? Don't forget to add the city!</p>
 	<input type="text" name="address">
 	<p>When?</p>
 	<input type="date" name="meetup_date">

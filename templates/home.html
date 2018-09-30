@@ -5,19 +5,23 @@
 </head>
 <body>
 	<h1>{{name}}</h1>
-	<a href="/newmeetup">
+	<a href="/newmeetup/{{user}}">
 		<button>Create a Meetup</button>
 	</a>
 
 	<h2>Upcoming Meetups</h1>
-	{% for m in meetups %}
+	{% for u in upcoming %}
 	<li>
-		{{m[0]}}
+		<a href='/meetup/{{u[1]}}'>{{u[1]}}</a>
 	</li>
 	{% endfor %}
+
+
 	<h2>Previous Meetups</h1>
+	{% for p in previous %}
 	<li>
-		
+		<a href='/meetup/{{p[1]}}'>{{p[1]}}</a>
 	</li>
+	{% endfor %}
 </body>
 </html>
