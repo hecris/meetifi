@@ -11,6 +11,15 @@ get_meetup_query = """
 SELECT * FROM meetups
 WHERE name = ?"""
 
+add_update_query = """
+INSERT INTO updates(meetup_name, user, distance, time)
+VALUES (?, ?, ?, ?)"""
+
+get_all_updates_query = """
+SELECT * FROM updates
+WHERE meetup_name = ?"""
+
+
 
 geocoder_url = "https://geocoder.api.here.com/6.2/geocode.json?app_id=uhIYrWPnuNlLk1tUWsfd&app_code=4DxLDAVJdKZy6uLvWof3jA&searchtext="
 

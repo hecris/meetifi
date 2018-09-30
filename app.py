@@ -62,34 +62,44 @@ def create():
         
     return user_home(user)
 
-@app.route('/meetup/<user>/<name>')
+@app.route('/meetup/<user>/<name>', methods=['GET', 'POST'])
 def existing_meetup(user, name):
     con = sqlite3.connect('database.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute(get_meetup_query, (name,))
-    row = cur.fetchall()[0]
-    address = row['address']
-    date = row['meetup_date']
-    dest_geo = get_geo(address)
-    weathers = get_hourly_weather(dest_geo.split(',')[0],dest_geo.split(',')[1], date)
-    position = get_position()
+    if request.method == 'POST':
+        cur.execute(add_update_query, [name, user, request.form['distance'], str(datetime.datetime.time(datetime.datetime.now()))])
+        con.commit()
+        return redirect(url_for('existing_meetup', user=user, name=name))
+    else:
+        cur.execute(get_all_updates_query, (name,))
+        # this is all the updates
+        rows = cur.fetchall()
     
-    try:
-        route = get_route(position, dest_geo)
-        start = route['response']['route'][0]['leg'][0]['maneuver']
-    except:
-        return 'could not find route, please check address'
-    directions = []
+        cur.execute(get_meetup_query, (name,))
+        row = cur.fetchall()[0]
+        address = row['address']
+        date = row['meetup_date']
+    
+        dest_geo = get_geo(address)
+        weathers = get_hourly_weather(dest_geo.split(',')[0],dest_geo.split(',')[1], date)
+        position = get_position()
+        
+        try:
+            route = get_route(position, dest_geo)
+            start = route['response']['route'][0]['leg'][0]['maneuver']
+        except:
+            return 'could not find route, please check address'
+        distance = route['response']['route'][0]['summary']['distance']
+        directions = []
+    
+        for s in start:
+            directions.append(remove_tags(s['instruction']))
 
+        json_restaurants = get_places(dest_geo, 'restaurant')
+        restaurants = json_restaurants['results']['items']
     
-    for s in start:
-        directions.append(remove_tags(s['instruction']))
-
-    json_restaurants = get_places(dest_geo, 'restaurant')
-    restaurants = json_restaurants['results']['items']
-    
-    return render_template('meetup.html', info = row, weathers = weathers, user = user, directions = directions, restaurants = restaurants)
+        return render_template('meetup.html', info = row, weathers = weathers, user = user, directions = directions, restaurants = restaurants, distance = distance, updates = rows)
 
 def get_geo(address):
     r = requests.get(geocoder_url + quote(address)).json()
