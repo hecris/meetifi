@@ -8,10 +8,13 @@
 	<a href="/newmeetup">
 		<button>Create a Meetup</button>
 	</a>
+
 	<h2>Upcoming Meetups</h1>
+	{% for m in meetups %}
 	<li>
-		
+		{{m[0]}}
 	</li>
+	{% endfor %}
 	<h2>Previous Meetups</h1>
 	<li>
 		
