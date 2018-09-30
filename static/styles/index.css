@@ -72,3 +72,51 @@ h1{
   width:300px;
   border-color: #c9ced6;
 }
+
+#container{
+  background-image: url("people.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height:520px;
+  text-align: center;
+  padding-top: 10%;
+}
+#container h1{
+  font-size: 100px;
+  font-family: arial;
+  text-align: center;
+  color: white;
+}
+#container button{
+  border-radius: 10%;
+  background-color: #b4ed3b;
+  color: black;
+}
+#start{
+  text-align: right;
+  border-bottom: solid #b4ed3b;
+}
+#start input{
+  width:350px;
+}
+
+#about{
+  margin-top: 20px;
+  text-align: center;
+}
+.icon{
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 80%;
+}
+.myNav{
+  height:60px;
+  text-align: right;
+  margin-top: 20px;
+}
+.myNav a{
+  margin-right:80px;
+  font-size: 27px;
+  color: grey;
+}
