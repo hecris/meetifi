@@ -58,11 +58,24 @@ def existing_meetup(name):
     cur.execute(get_meetup_query, (name,))
     row = cur.fetchall()[0]
     address = row['address']
-    r = requests.get(geocoder_url + quote(address))
-    print(r.text)
-    return render_template('meetup.html', info = row)
+    date = row['meetup_date']
+    r = requests.get(geocoder_url + quote(address)).json()
+    lat = str(r['Response']['View'][0]['Result'][0]['Location']['DisplayPosition']['Latitude'])
+    long = str(r['Response']['View'][0]['Result'][0]['Location']['DisplayPosition']['Longitude'])
+    weathers = get_hourly_weather(lat,long, date)
+    return render_template('meetup.html', info = row, weathers = weathers)
 
-
+def get_hourly_weather(lat, long, date):
+    r = requests.get(weather_url + "latitude=" + lat + "&longitude=" + long).json()
+    #return weather_url + "latitude=" + lat + "&longitude=" + long
+    #return str(r)
+    days = r['hourlyForecasts']['forecastLocation']['forecast']
+    weathers = []
+    for d in days:
+        if date in d['utcTime']:
+            weathers.append(d)
+    return weathers
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

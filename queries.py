@@ -13,3 +13,4 @@ WHERE name = ?"""
 
 
 geocoder_url = "https://geocoder.api.here.com/6.2/geocode.json?app_id=uhIYrWPnuNlLk1tUWsfd&app_code=4DxLDAVJdKZy6uLvWof3jA&searchtext="
+weather_url = "https://weather.api.here.com/weather/1.0/report.json?app_id=uhIYrWPnuNlLk1tUWsfd&app_code=4DxLDAVJdKZy6uLvWof3jA&product=forecast_hourly&"
