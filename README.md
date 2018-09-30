@@ -1,1 +1,1 @@
-# hackNY-2018
+# Meetify
