@@ -2,8 +2,8 @@ from flask import Flask, render_template, request
 import sqlite3
 from queries import *
 import datetime
-from urllib.parse import quote
 import requests
+from urllib.parse import quote
 
 app = Flask(__name__)
 
@@ -48,7 +48,7 @@ def create():
                     [user, name, address, meetup_date, meetup_time, invites])
         con.commit()
         
-    return 'done'
+    return user_home(user)
 
 @app.route('/meetup/<name>')
 def existing_meetup(name):
@@ -75,6 +75,13 @@ def get_hourly_weather(lat, long, date):
         if date in d['utcTime']:
             weathers.append(d)
     return weathers
+
+def get_positioning():
+    r = requests.post(position_url, json=position_data).json()
+    location = r['location']
+    lat = location['lat']
+    long = location['lng']
+    return (lat, long)
     
 
 if __name__ == '__main__':

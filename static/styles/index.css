@@ -1,19 +1,19 @@
-.header h1 {
+#header h1 {
   text-align:left;
 }
-.header a {
-  display: inline;
+#header a {
+
 }
 
 
-.header{
+#header{
   background-color: grey;
   color:white;
   text-align:right;
   height:60px;
 
 }
-.header button{
+#header button{
   background-color: #b0f442;
   border-color: #b0f442;
   margin-top: 5px;
@@ -71,8 +71,4 @@ h1{
 .friends textarea{
   width:300px;
   border-color: #c9ced6;
-}
-
-.weather{
-  height: 450px;
 }
