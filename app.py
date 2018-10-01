@@ -5,6 +5,7 @@ import datetime
 import requests
 from urllib.parse import quote
 import re
+import os
 
 TAG_RE = re.compile(r'<[^>]+>')
 
