@@ -1,3 +1,6 @@
+clear_table_query = """
+DELETE FROM ?
+"""
 
 add_meetup_query = """
 INSERT INTO meetups(user, name, address, meetup_date, meetup_time, invites)
